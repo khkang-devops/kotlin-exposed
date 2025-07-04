@@ -11,6 +11,7 @@
 
 ## Kotlin Exposed
 - JetBrains 에서 개발한 Kotlin 기반의 경량 ORM(객체-관계 매핑) 및 SQL 라이브러리
+- Kotlin 생태계에서 SQL 빌더로서의 표준적인 위치를 차지
 - JDBC 위에서 동작하며 불필요한 오버헤드가 적고, 코드가 가벼움
 - Kotlin 친화적이며 SQL 쿼리와 테이블 정의를 Kotlin 코드로 자연스럽게 작성할 수 있음
 - 두 가지 접근 방식 제공
@@ -68,7 +69,7 @@ object Sample : BaseTable("sample") {
 }
 ```
 
-## 기본 쿼리
+## 기본 쿼리 (DSL 방식)
 ```kotlin
 // select
 Table
@@ -146,7 +147,7 @@ fun getSampleListNative(request: SampleRequestDto): List<SampleResponseDto> {
 
 ## Spring + Exposed 트랜잭션 연동
 - exposed-spring-boot-starter 모듈을 사용하면 spring 에서 관리하는 트랜잭션 매니저 사용 가능
-- servie 단에서 @Transactional 을 사용하면 exposed 의 transaction{} 블럭 없이도 트랜잭션 관리 가능
+- service 단에서 @Transactional 을 사용하면 exposed 의 transaction{} 블럭 없이도 트랜잭션 관리 가능
 ```kotlin
 @Transactional
 fun insertSample(request: SampleRequestDto) {
@@ -165,8 +166,8 @@ fun insertSample(request: SampleRequestDto) {
 - JDBC 위 thin wrapper 로 동작해, 불필요한 오버헤드가 적고, 코드가 가벼움
 - 쿼리 결과가 dto 에 자동 매칭이 안되는 점은 아쉬움
 
-  | 항목     | JPA (Hibernate)          | Exposed (Kotlin)           |
-  |--------|--------------------------|----------------------------|
+  | 항목     | JPA          | Exposed           |
+  |--------|--------------------------|-------------------|
   | 언어 친화성 | Java 중심, Kotlin 과 궁합이 나쁨 | Kotlin 전용, Kotlin 문법 적극 활용 |
   | 쿼리 제어 | 추상화 높음, SQL 직접 제어 어려움    | SQL DSL로 직접 제어, 투명성 높음 |
   | 성능 | 복잡한 쿼리/대량 처리에서 오버헤드 있음   | Batch 등에서 더 나은 성능 가능 |
