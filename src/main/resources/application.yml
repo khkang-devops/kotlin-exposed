@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: kotlin-exposed
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/db_e2b
+    username: dtmp
+    password: dtmp1234
+    hikari:
+      auto-commit: false
+      maximum-pool-size: 10
+      connection-timeout: 10000
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+  exposed:
+    generate-ddl: false
+    show-sql: true
+
+logging:
+  level:
+    com.test.kotlinexposed: debug
+    Exposed: debug
