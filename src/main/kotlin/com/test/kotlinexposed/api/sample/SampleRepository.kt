@@ -24,20 +24,16 @@ class SampleRepository {
 
     // 조회조건
     fun getCondition(request: SampleRequestDto): Op<Boolean> {
-        val condition = mutableListOf<Op<Boolean>>()
+        var condition: Op<Boolean> = Op.TRUE
 
         if (request.sampleId != null) {
-            condition.add(Sample.sampleId eq request.sampleId)
+            condition = condition and (Sample.sampleId eq request.sampleId)
         }
         if (request.sampleName != null) {
-            condition.add(Sample.sampleName like "%${request.sampleName}%")
+            condition = condition and (Sample.sampleName like "%${request.sampleName}%")
         }
 
-        return if (condition.isNotEmpty()) {
-            condition.reduce { acc, op -> acc and op }
-        } else {
-            Op.TRUE
-        }
+        return condition
     }
 
     // 샘플조회
